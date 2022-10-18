@@ -71,7 +71,7 @@ int main(){
                 }
                 else{
                    // mapa[current_y][current_x] = '.';
-                    int a = waz[0];
+                    //int a = waz[0];
                     for (int j = 1; j < dlugosc_weza; j++)
                     {
                         mapa[kordynaty[j-1][0]][kordynaty[j-1][1]] = waz[j-1];
