@@ -16,19 +16,19 @@ int main(){
             mapa[i][j] = '.';
             //cout<<mapa[i][j]<<" ";
         }
-       // cout<<'\n';
+        //cout<<'\n';
     }
     mapa[0][0] = '0';//wstawianie weza
     int current_x = 0, current_y = 0;
     vector<char> waz{'0'};
-    vector<vector<int> > kordynaty;
+    vector<vector<int> > koordynaty;
     vector<int> pomocnik;
     
     pomocnik.push_back(current_y);
     pomocnik.push_back(current_x);
-    kordynaty.push_back(pomocnik);
+    koordynaty.push_back(pomocnik);
     pomocnik.clear();
-    // cout<<kordynaty[0][0]<<" "<<kordynaty[0][1]<<endl;
+    // cout<<koordynaty[0][0]<<" "<<koordynaty[0][1]<<endl;
 
     int Wi,Ki,Ci;//Wi->wiersz Ki->kolumna Ci->jedna przekąska o kolorze i
     for (int i = 0; i < p; i++)
@@ -36,6 +36,7 @@ int main(){
         cin>>Wi>>Ki>>Ci;
         mapa[Wi-1][Ki-1] = Ci+'0';
     }
+    
 
     //  for (int i = 0; i < m; i++)
     //     {
@@ -58,20 +59,20 @@ int main(){
             cin>>Wj>>Kj;
             
                 bool czyBreak = false;
-                for (int j = 0; j < kordynaty.size(); j++)
+                for (int j = 0; j < koordynaty.size(); j++)
                 {
-                    if(kordynaty[j][0] == (Wj-1) && kordynaty[j][1] == (Kj-1)){
+                    if((koordynaty[j][0] == (Wj-1)) && (koordynaty[j][1] == (Kj-1))){
                         cout<<waz[j]<<endl;
                         czyBreak = true;
                         break;
                     }
                 }
-                if(!czyBreak)
-                    if(mapa[Wj-1][Kj-1] !='.')
+                if(!czyBreak){
+                    if(mapa[Wj-1][Kj-1] != '.')
                         cout<<mapa[Wj-1][Kj-1]<<endl;
                     else
                         cout<<-1<<endl;
-                
+                }
         }
         else{
 
@@ -80,30 +81,30 @@ int main(){
                     // waz.insert(waz.begin(),mapa[current_y][current_x+1]);
                     pomocnik.push_back(current_y);
                      pomocnik.push_back(current_x+1);
-                    kordynaty.insert(kordynaty.begin(),pomocnik);
+                    koordynaty.insert(koordynaty.begin(),pomocnik);
                     pomocnik.clear();
                     waz.insert(waz.begin(),mapa[current_y][current_x+1]);
                 }
                 else{
                     mapa[current_y][current_x+1] = waz[0];
-                   int tep_y = kordynaty[kordynaty.size()-1][0],tep_x = kordynaty[kordynaty.size()-1][1];
+                   int tep_y = koordynaty[koordynaty.size()-1][0],tep_x = koordynaty[koordynaty.size()-1][1];
 
-                    int kordynaktyKop[kordynaty.size()][2];
+                    int kordynaktyKop[koordynaty.size()][2];
 
-                    for (int k = 0; k < kordynaty.size(); k++)
+                    for (int k = 0; k < koordynaty.size(); k++)
                     {
-                            kordynaktyKop[k][0] = kordynaty[k][0];
-                             kordynaktyKop[k][1] = kordynaty[k][1];
+                            kordynaktyKop[k][0] = koordynaty[k][0];
+                             kordynaktyKop[k][1] = koordynaty[k][1];
                     }
                     
-                    for (int j = 1; j < waz.size(); j++)
+                    for (int j = waz.size()-1; j >= 1; j--)//---------------------------------
                     {
-                        mapa[kordynaty[j-1][0]][kordynaty[j-1][1]] = waz[j];
-                        //  mapa[kordynaty[j][0]][kordynaty[j][1]] = '.';
-                          kordynaty[j][0] = kordynaktyKop[j-1][0];
-                         kordynaty[j][1] = kordynaktyKop[j-1][1];
+                        mapa[koordynaty[j-1][0]][koordynaty[j-1][1]] = waz[j];
+                        //  mapa[koordynaty[j][0]][koordynaty[j][1]] = '.';
+                          koordynaty[j][0] = kordynaktyKop[j-1][0];
+                         koordynaty[j][1] = kordynaktyKop[j-1][1];
                     }
-                    kordynaty[0][1] = current_x+1;
+                    koordynaty[0][1] = current_x+1;
                      mapa[tep_y][tep_x] = '.';
                 }
                 current_x += 1;
@@ -112,30 +113,30 @@ int main(){
                 if(mapa[current_y][current_x-1] != '.'){
                     pomocnik.push_back(current_y);
                      pomocnik.push_back(current_x-1);
-                    kordynaty.insert(kordynaty.begin(),pomocnik);
+                    koordynaty.insert(koordynaty.begin(),pomocnik);
                     pomocnik.clear();
                     waz.insert(waz.begin(),mapa[current_y][current_x-1]);
                 }
                 else{
                   mapa[current_y][current_x-1] = waz[0];
-                   int tep_y = kordynaty[kordynaty.size()-1][0],tep_x = kordynaty[kordynaty.size()-1][1];
+                   int tep_y = koordynaty[koordynaty.size()-1][0],tep_x = koordynaty[koordynaty.size()-1][1];
 
-                    int kordynaktyKop[kordynaty.size()][2];
+                    int kordynaktyKop[koordynaty.size()][2];
 
-                    for (int k = 0; k < kordynaty.size(); k++)
+                    for (int k = 0; k < koordynaty.size(); k++)
                     {
-                            kordynaktyKop[k][0] = kordynaty[k][0];
-                             kordynaktyKop[k][1] = kordynaty[k][1];
+                            kordynaktyKop[k][0] = koordynaty[k][0];
+                             kordynaktyKop[k][1] = koordynaty[k][1];
                     }
                     
-                    for (int j = 1; j < waz.size(); j++)
+                    for (int j = waz.size()-1; j >= 1; j--)//---------------------------------
                     {
-                        mapa[kordynaty[j-1][0]][kordynaty[j-1][1]] = waz[j];
-                        //  mapa[kordynaty[j][0]][kordynaty[j][1]] = '.';
-                          kordynaty[j][0] = kordynaktyKop[j-1][0];
-                         kordynaty[j][1] = kordynaktyKop[j-1][1];
+                        mapa[koordynaty[j-1][0]][koordynaty[j-1][1]] = waz[j];
+                        //  mapa[koordynaty[j][0]][koordynaty[j][1]] = '.';
+                          koordynaty[j][0] = kordynaktyKop[j-1][0];
+                         koordynaty[j][1] = kordynaktyKop[j-1][1];
                     }
-                    kordynaty[0][1] = current_x-1;
+                    koordynaty[0][1] = current_x-1;
                      mapa[tep_y][tep_x] = '.';
                 }
                 current_x -= 1;
@@ -144,30 +145,30 @@ int main(){
                 if(mapa[current_y-1][current_x] != '.'){
                     pomocnik.push_back(current_y-1);
                      pomocnik.push_back(current_x);
-                    kordynaty.insert(kordynaty.begin(),pomocnik);
+                    koordynaty.insert(koordynaty.begin(),pomocnik);
                     pomocnik.clear();
                     waz.insert(waz.begin(),mapa[current_y-1][current_x]);
                 }
                 else{
                     mapa[current_y-1][current_x] = waz[0];
-                   int tep_y = kordynaty[kordynaty.size()-1][0],tep_x = kordynaty[kordynaty.size()-1][1];
+                   int tep_y = koordynaty[koordynaty.size()-1][0],tep_x = koordynaty[koordynaty.size()-1][1];
 
-                    int kordynaktyKop[kordynaty.size()][2];
+                    int kordynaktyKop[koordynaty.size()][2];
 
-                    for (int k = 0; k < kordynaty.size(); k++)
+                    for (int k = 0; k < koordynaty.size(); k++)
                     {
-                            kordynaktyKop[k][0] = kordynaty[k][0];
-                             kordynaktyKop[k][1] = kordynaty[k][1];
+                            kordynaktyKop[k][0] = koordynaty[k][0];
+                             kordynaktyKop[k][1] = koordynaty[k][1];
                     }
                     
-                    for (int j = 1; j < waz.size(); j++)
+                    for (int j = waz.size()-1; j >= 1; j--)//---------------------------------
                     {
-                        mapa[kordynaty[j-1][0]][kordynaty[j-1][1]] = waz[j];
-                        //  mapa[kordynaty[j][0]][kordynaty[j][1]] = '.';
-                          kordynaty[j][0] = kordynaktyKop[j-1][0];
-                         kordynaty[j][1] = kordynaktyKop[j-1][1];
+                        mapa[koordynaty[j-1][0]][koordynaty[j-1][1]] = waz[j];
+                        //  mapa[koordynaty[j][0]][koordynaty[j][1]] = '.';
+                          koordynaty[j][0] = kordynaktyKop[j-1][0];
+                         koordynaty[j][1] = kordynaktyKop[j-1][1];
                     }
-                    kordynaty[0][0] = current_y-1;
+                    koordynaty[0][0] = current_y-1;
                      mapa[tep_y][tep_x] = '.';
                 }
                 current_y -= 1;
@@ -176,53 +177,53 @@ int main(){
                 if(mapa[current_y+1][current_x] != '.'){
                     pomocnik.push_back(current_y+1);
                      pomocnik.push_back(current_x);
-                    kordynaty.insert(kordynaty.begin(),pomocnik);
+                    koordynaty.insert(koordynaty.begin(),pomocnik);
                     pomocnik.clear();
                     waz.insert(waz.begin(),mapa[current_y+1][current_x]);
                 }
                 else{
                    mapa[current_y+1][current_x] = waz[0];
-                   int tep_y = kordynaty[kordynaty.size()-1][0],tep_x = kordynaty[kordynaty.size()-1][1];
+                   int tep_y = koordynaty[koordynaty.size()-1][0],tep_x = koordynaty[koordynaty.size()-1][1];
 
-                    int kordynaktyKop[kordynaty.size()][2];
+                    int kordynaktyKop[koordynaty.size()][2];
 
-                    for (int k = 0; k < kordynaty.size(); k++)
+                    for (int k = 0; k < koordynaty.size(); k++)
                     {
-                            kordynaktyKop[k][0] = kordynaty[k][0];
-                             kordynaktyKop[k][1] = kordynaty[k][1];
+                            kordynaktyKop[k][0] = koordynaty[k][0];
+                             kordynaktyKop[k][1] = koordynaty[k][1];
                     }
                     
-                    for (int j = 1; j < waz.size(); j++)
+                    for (int j = waz.size()-1; j >= 1; j--)//---------------------------------
                     {
-                        mapa[kordynaty[j-1][0]][kordynaty[j-1][1]] = waz[j];
-                        //  mapa[kordynaty[j][0]][kordynaty[j][1]] = '.';
-                          kordynaty[j][0] = kordynaktyKop[j-1][0];
-                         kordynaty[j][1] = kordynaktyKop[j-1][1];
+                        mapa[koordynaty[j-1][0]][koordynaty[j-1][1]] = waz[j];
+                        //  mapa[koordynaty[j][0]][koordynaty[j][1]] = '.';
+                          koordynaty[j][0] = kordynaktyKop[j-1][0];
+                         koordynaty[j][1] = kordynaktyKop[j-1][1];
                     }
-                    kordynaty[0][0] = current_y+1;
+                    koordynaty[0][0] = current_y+1;
                      mapa[tep_y][tep_x] = '.';
                 }
                 current_y += 1;
             }
            // mapa[current_y][current_x] = '0';
             
-            // for (int a = 0; a < m; a++)
-            // {
-            //     for (int j = 0; j < m; j++)
-            //     {
-            //     // mapa[i][j] = '.';
-            //         cout<<mapa[a][j]<<" ";
-            //     }
-            // cout<<'\n';
-            // }
-            // cout<<endl;
+            for (int a = 0; a < m; a++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                // mapa[i][j] = '.';
+                    cout<<mapa[a][j]<<" ";
+                }
+            cout<<'\n';
+            }
+            cout<<endl;
             
-            // cout<<endl;
-            // for (int a = 0; a < kordynaty.size(); a++)
-            // {
-            //     cout<<waz[a]<<" ("<<kordynaty[a][0]<<" "<<kordynaty[a][1]<<") "<<endl;
-            // }
-            // cout<<endl;
+            cout<<endl;
+            for (int a = 0; a < koordynaty.size(); a++)
+            {
+                cout<<waz[a]<<" ("<<koordynaty[a][0]<<" "<<koordynaty[a][1]<<") "<<endl;
+            }
+            cout<<endl;
             
         }
     }
