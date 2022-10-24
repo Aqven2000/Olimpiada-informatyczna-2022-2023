@@ -4,6 +4,8 @@
 using namespace std;
 
 int main(){
+    // ios_base::sync_with_stdio(0);
+    // cin.tie(0);
     int m,p,n;//m -> długość i szerokość planszy p-> liczbę przekąsek na planszy n-> liczbę poleceń do obsłużenia
     cin>>m>>p>>n;
 
@@ -59,6 +61,7 @@ int main(){
             cin>>Wj>>Kj;
             
                 bool czyBreak = false;
+            if(koordynaty.size()>1)
                 for (int j = 0; j < koordynaty.size(); j++)
                 {
                     if((koordynaty[j][0] == (Wj-1)) && (koordynaty[j][1] == (Kj-1))){
@@ -67,10 +70,14 @@ int main(){
                         break;
                     }
                 }
+            else{
+                if((koordynaty[0][0] == (Wj-1)) && (koordynaty[0][1] == (Kj-1))){
+                        cout<<waz[0]<<endl;
+                        czyBreak = true;
+                        // break;
+                    }
+            }
                 if(!czyBreak){
-                    if(mapa[Wj-1][Kj-1] != '.')
-                        cout<<mapa[Wj-1][Kj-1]<<endl;
-                    else
                         cout<<-1<<endl;
                 }
         }
@@ -128,14 +135,14 @@ int main(){
                             kordynaktyKop[k][0] = koordynaty[k][0];
                              kordynaktyKop[k][1] = koordynaty[k][1];
                     }
-                    
-                    for (int j = waz.size()-1; j >= 1; j--)//---------------------------------
-                    {
-                        mapa[koordynaty[j-1][0]][koordynaty[j-1][1]] = waz[j];
-                        //  mapa[koordynaty[j][0]][koordynaty[j][1]] = '.';
-                          koordynaty[j][0] = kordynaktyKop[j-1][0];
-                         koordynaty[j][1] = kordynaktyKop[j-1][1];
-                    }
+                    // if(waz.size()>1)
+                        for (int j = waz.size()-1; j >= 1; j--)//---------------------------------
+                        {
+                            mapa[koordynaty[j-1][0]][koordynaty[j-1][1]] = waz[j];
+                            //  mapa[koordynaty[j][0]][koordynaty[j][1]] = '.';
+                            koordynaty[j][0] = kordynaktyKop[j-1][0];
+                            koordynaty[j][1] = kordynaktyKop[j-1][1];
+                        }
                     koordynaty[0][1] = current_x-1;
                      mapa[tep_y][tep_x] = '.';
                 }
