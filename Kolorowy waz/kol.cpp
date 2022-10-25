@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <string> 
 
 using namespace std;
 
@@ -9,20 +10,20 @@ int main(){
     int m,p,n;//m -> długość i szerokość planszy p-> liczbę przekąsek na planszy n-> liczbę poleceń do obsłużenia
     cin>>m>>p>>n;
 
-    char mapa[m][m];
+    string mapa[m][m];
 
     for (int i = 0; i < m; i++)
     {
         for (int j = 0; j < m; j++)
         {
-            mapa[i][j] = '.';
+            mapa[i][j] = ".";
             //cout<<mapa[i][j]<<" ";
         }
         //cout<<'\n';
     }
-    mapa[0][0] = '0';//wstawianie weza
+    mapa[0][0] = "0";//wstawianie weza
     int current_x = 0, current_y = 0;
-    vector<char> waz{'0'};
+    vector<string> waz{"0"};
     vector<vector<int> > koordynaty;
     vector<int> pomocnik;
     
@@ -36,7 +37,7 @@ int main(){
     for (int i = 0; i < p; i++)
     {
         cin>>Wi>>Ki>>Ci;
-        mapa[Wi-1][Ki-1] = Ci+'0';
+        mapa[Wi-1][Ki-1] = to_string(Ci);
     }
     
 
@@ -60,8 +61,8 @@ int main(){
         if(skret == 'Z'){
             cin>>Wj>>Kj;
             
+            
                 bool czyBreak = false;
-            if(koordynaty.size()>1)
                 for (int j = 0; j < koordynaty.size(); j++)
                 {
                     if((koordynaty[j][0] == (Wj-1)) && (koordynaty[j][1] == (Kj-1))){
@@ -70,21 +71,32 @@ int main(){
                         break;
                     }
                 }
-            else{
-                if((koordynaty[0][0] == (Wj-1)) && (koordynaty[0][1] == (Kj-1))){
-                        cout<<waz[0]<<endl;
-                        czyBreak = true;
-                        // break;
-                    }
-            }
                 if(!czyBreak){
                         cout<<-1<<endl;
                 }
+
+                // for (int a = 0; a < m; a++)
+                // {
+                //     for (int j = 0; j < m; j++)
+                //     {
+                //     // mapa[i][j] = '.';
+                //         cout<<mapa[a][j]<<" ";
+                //     }
+                // cout<<'\n';
+                // }
+                // cout<<endl;
+                
+                // cout<<endl;
+                // for (int a = 0; a < koordynaty.size(); a++)
+                // {
+                //     cout<<waz[a]<<" ("<<koordynaty[a][0]<<" "<<koordynaty[a][1]<<") "<<endl;
+                // }
+                // cout<<endl;
         }
         else{
 
             if(skret == 'P'){
-                if(mapa[current_y][current_x+1] != '.'){
+                if(mapa[current_y][current_x+1] != "."){
                     // waz.insert(waz.begin(),mapa[current_y][current_x+1]);
                     pomocnik.push_back(current_y);
                      pomocnik.push_back(current_x+1);
@@ -112,12 +124,12 @@ int main(){
                          koordynaty[j][1] = kordynaktyKop[j-1][1];
                     }
                     koordynaty[0][1] = current_x+1;
-                     mapa[tep_y][tep_x] = '.';
+                     mapa[tep_y][tep_x] = ".";
                 }
                 current_x += 1;
             }
             if(skret == 'L'){
-                if(mapa[current_y][current_x-1] != '.'){
+                if(mapa[current_y][current_x-1] != "."){
                     pomocnik.push_back(current_y);
                      pomocnik.push_back(current_x-1);
                     koordynaty.insert(koordynaty.begin(),pomocnik);
@@ -144,12 +156,12 @@ int main(){
                             koordynaty[j][1] = kordynaktyKop[j-1][1];
                         }
                     koordynaty[0][1] = current_x-1;
-                     mapa[tep_y][tep_x] = '.';
+                     mapa[tep_y][tep_x] = ".";
                 }
                 current_x -= 1;
             }
             if(skret == 'G'){
-                if(mapa[current_y-1][current_x] != '.'){
+                if(mapa[current_y-1][current_x] != "."){
                     pomocnik.push_back(current_y-1);
                      pomocnik.push_back(current_x);
                     koordynaty.insert(koordynaty.begin(),pomocnik);
@@ -176,12 +188,12 @@ int main(){
                          koordynaty[j][1] = kordynaktyKop[j-1][1];
                     }
                     koordynaty[0][0] = current_y-1;
-                     mapa[tep_y][tep_x] = '.';
+                     mapa[tep_y][tep_x] = ".";
                 }
                 current_y -= 1;
             }
             if(skret == 'D'){
-                if(mapa[current_y+1][current_x] != '.'){
+                if(mapa[current_y+1][current_x] != "."){
                     pomocnik.push_back(current_y+1);
                      pomocnik.push_back(current_x);
                     koordynaty.insert(koordynaty.begin(),pomocnik);
@@ -208,29 +220,29 @@ int main(){
                          koordynaty[j][1] = kordynaktyKop[j-1][1];
                     }
                     koordynaty[0][0] = current_y+1;
-                     mapa[tep_y][tep_x] = '.';
+                     mapa[tep_y][tep_x] = ".";
                 }
                 current_y += 1;
             }
            // mapa[current_y][current_x] = '0';
             
-            for (int a = 0; a < m; a++)
-            {
-                for (int j = 0; j < m; j++)
-                {
-                // mapa[i][j] = '.';
-                    cout<<mapa[a][j]<<" ";
-                }
-            cout<<'\n';
-            }
-            cout<<endl;
+            // for (int a = 0; a < m; a++)
+            // {
+            //     for (int j = 0; j < m; j++)
+            //     {
+            //     // mapa[i][j] = '.';
+            //         cout<<mapa[a][j]<<" ";
+            //     }
+            // cout<<'\n';
+            // }
+            // cout<<endl;
             
-            cout<<endl;
-            for (int a = 0; a < koordynaty.size(); a++)
-            {
-                cout<<waz[a]<<" ("<<koordynaty[a][0]<<" "<<koordynaty[a][1]<<") "<<endl;
-            }
-            cout<<endl;
+            // cout<<endl;
+            // for (int a = 0; a < koordynaty.size(); a++)
+            // {
+            //     cout<<waz[a]<<" ("<<koordynaty[a][0]<<" "<<koordynaty[a][1]<<") "<<endl;
+            // }
+            // cout<<endl;
             
         }
     }
