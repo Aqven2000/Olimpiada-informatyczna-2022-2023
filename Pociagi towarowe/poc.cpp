@@ -32,46 +32,66 @@ vector<vector<int> > wyniki;
 int sprawdzana = m-1;
 map<int, bool> indexy;
 
-    
-for (int z = 0; z < n; z++){
-vector<int> pom_wynik;
-j=0;
-bool czy_break = false;
-    for (int i = 0; i < n; i++)
-    {
-        if(pom[i] == NieCala[j]){
-            pom_wynik.push_back(i);
-            j++;
-        }
+while(sprawdzana>=0){
+    vector<int> pom_wynik;
+    j=0;
+    int i = 0;
+    bool czy_break = false;
+    int zlicz_min_one = 0;
+        for (i = 0; i < pom.size(); i++)
+        {
+            if(pom[i] == NieCala[j]){
+                pom_wynik.push_back(i);
+                j++;
+            }
 
-        if(j == NieCala.size()){
-            j=0;
-            czy_break = true;
-            break;
-        }
-        
-    }
-    // wyniki.push_back(pom_wynik);
-    if(!czy_break){
-        pom[wyniki[wyniki.size()-1][sprawdzana]] = cala[wyniki[wyniki.size()-1][sprawdzana]];
-        --sprawdzana;
-    }
-    else{
-        wyniki.push_back(pom_wynik);
-        if(pom_wynik.size() == NieCala.size()){
-            for (int k = 0; k < NieCala.size(); k++)
-            {
-                indexy[pom_wynik[k]] = true;
+            if(j == NieCala.size()){
+                j=0;
+                czy_break = true;
+                break;
             }
             
         }
 
-        pom[wyniki[wyniki.size()-1][sprawdzana]] = -1;
-    }
+        if(!czy_break){
+            
+            for (int h = pom.size()-1; h >= wyniki[wyniki.size()-1][sprawdzana]; h--)
+            {
+                pom.pop_back();
+            }
 
+            NieCala.pop_back();
+            if(pom.size() <=0){
+                break;
+            }
+
+            for (int h = 0; h < pom.size(); h++)
+            {
+                pom[h] = cala[h];
+            }
+            
+             --sprawdzana;
+            czy_break = false;
+        }
+        else{
+             wyniki.push_back(pom_wynik);
+
+
+        pom[wyniki[wyniki.size()-1][sprawdzana]] = -1;
+        ++zlicz_min_one;
+    }
+    if(zlicz_min_one == pom.size())
+        break;
 }
 
 
+for (int i = 0; i < wyniki.size(); i++)
+{
+    for (int j = 0; j < wyniki[i].size(); j++)
+    {
+        indexy[wyniki[i][j]] = true;
+    }
+}
 
 for (int i = 0; i < n; i++)
 {
@@ -80,16 +100,6 @@ for (int i = 0; i < n; i++)
     else
         cout<<0<<" ";
 }
-
-
-
-
-
-
-
-
-
-
 
 
     return 0;
