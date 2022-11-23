@@ -1,13 +1,13 @@
-#include <iostream>
-#include <vector>
-#include <string> 
-#include <fstream> 
+// #include <iostream>
+// #include <vector>
+// #include <string> 
+#include <bits/stdc++.h>
 
 using namespace std;
 
 int main(){
-    // ios_base::sync_with_stdio(0);
-    // cin.tie(0);
+     ios_base::sync_with_stdio(0);
+     cin.tie(0);
     int m,p,n;//m -> długość i szerokość planszy p-> liczbę przekąsek na planszy n-> liczbę poleceń do obsłużenia
     cin>>m>>p>>n;
 
@@ -60,13 +60,13 @@ int main(){
                 for (int j = 0; j < koordynaty.size(); j++)
                 {
                     if((koordynaty[j][0] == (Wj-1)) && (koordynaty[j][1] == (Kj-1))){
-                        cout<<waz[j]<<endl;
+                        cout<<waz[j]<<'\n';
                         czyBreak = true;
                         break;
                     }
                 }
                 if(!czyBreak){
-                        cout<<-1<<endl;
+                        cout<<-1<<'\n';
                 }
         }
         else{
